@@ -40,11 +40,23 @@ class Author(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    publication_date = models.DateField(default='2000-01-01')
+    isbn = models.CharField(max_length=13, default="101", unique=True)
+
+    class Meta:
+        permissions = [
+            ("can_view", "can view book"),
+            ("can_create", "can create book"),
+            ("can_edit", "can edit book"),
+            ("can_delete", "can delete book"),
+        ]
 
 class Library(models.Model):
     name = models.CharField(max_length=100)
     books = models.ManyToManyField(Book)
+    
 
+    
 class Librarian(models.Model):
     name = models.CharField(max_length=100)
     library = models.OneToOneField(Library, on_delete=models.CASCADE)
