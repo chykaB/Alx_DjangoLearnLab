@@ -8,3 +8,8 @@ class BookForm(forms.ModelForm):
         widget = {
             "published_date": forms.DateInput(attrs={"type":"date"}),
         }
+
+class ExampleForm(forms.Form):
+    # Add some fields to your form
+    name = forms.CharField(max_length=100)
+    email = forms.EmailField()
