@@ -75,6 +75,12 @@ CSP_SCRIPT_SRC = ("'self'",)
 CSP_IMG_SRC = ("'self'", "data:", "https:")
 CSP_FONT_SRC = ("'self'", "https:", "data:")
 
+# Ensure Django uses HTTPS URLs when generating links
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
+
+
 ROOT_URLCONF = 'LibraryProject.urls'
 
 TEMPLATES = [
