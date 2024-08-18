@@ -13,7 +13,7 @@ from django.core.exceptions import PermissionDenied
 @require_http_methods(["GET"])
 def book_list(request):
     books = Book.objects.all().order_by("title")
-    return render(request, "bookshelf/book-list.html", {"books":books})
+    return render(request, "bookshelf/book_list.html", {"books":books})
 
 @permission_required("bookshelf.can_view", raise_exception=True)
 @require_http_methods(["GET"])
