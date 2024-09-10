@@ -76,6 +76,18 @@ def CommentCreateView(request, post_pk):
     return render(request, "blog/comment_form.html", {"form":form})
 
 @method_decorator(login_required, name="dispatch")
+class CommentDeleteView(DeleteView):
+    model = Comment
+    template_name = "blog/comment_delete.html"
+
+    def get_queryset(self):
+        return Comment.objects.filter(author=self.request.user)
+    
+    def get_success_url(self):
+        return self.object.post.get_absolute_url()
+    
+
+@method_decorator(login_required, name="dispatch")
 class CommentUpdateView(UpdateView):
     model = Comment
     form_class = CommentForm
@@ -87,13 +99,4 @@ class CommentUpdateView(UpdateView):
     def get_success_url(self):
         return self.object.post.get_absolute_url()
     
-@method_decorator(login_required, name="dispatch")
-class CommentDeletView(DeleteView):
-    model = Comment
-    template_name = "blog/comment_delete.html"
 
-    def get_queryset(self):
-        return Comment.objects.filter(author=self.request.user)
-    
-    def get_success_url(self):
-        return self.object.post.get_absolute_url()
