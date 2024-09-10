@@ -60,7 +60,7 @@ class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = "post_confirm_delete.html"
 
 @login_required
-def add_comment(request, post_pk):
+def CommentCreateView(request, post_pk):
     post = get_object_or_404(Post, post_pk)
     if request.method == "POST":
         form = CommentForm(request.POST)
