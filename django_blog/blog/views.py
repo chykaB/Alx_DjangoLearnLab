@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from .forms import CustomUserCreationForm, CommentForm, PostForm
 from .models import Post, Comment
+from django.db.models import Q
+from taggit.models import Tag
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
@@ -100,3 +102,30 @@ class CommentUpdateView(UpdateView):
         return self.object.post.get_absolute_url()
     
 
+def search_post(request):
+    query = request.GET.get("q")
+    if query:
+        posts = Post.objects.filter(
+            Q(title__icontains = query) |
+            Q(content__icontains = query) |
+            Q(tags__name__icontains = query)
+        ).distinct
+
+    else:
+        posts = Post.objects.all()
+    return render(request, "blog/search_results.html", {"posts":posts, "query":query})
+
+
+class PostsByTag(ListView):
+    model = Post
+    template_name = "blog/posts-by-tag.html"
+    context_object_name = "post"
+
+    def get_queryset(self):
+        tag_slug = self.kwargs.get("tag_slug")
+        return Post.objects.filter(tag_slug=tag_slug)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tag_name"] = self.kwargs.get("tag_slug")
+        return context
