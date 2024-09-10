@@ -11,9 +11,9 @@ def register(request):
             return redirect("login") 
     else:
         form = CustomUserCreationForm()
-    return render(request, "blog/register.html", {"form":form})
+    return render(request, "registration/register.html", {"form":form})
 
 @login_required
 def profile(request):
-    return render(request, "blog/profile.html")
+    return render(request, "accounts/profile.html")
 

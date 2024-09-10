@@ -51,6 +51,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'django_blog.urls'
+LOGIN_REDIRECT_URL = '/accounts/profile/'
 
 TEMPLATES = [
     {
@@ -80,7 +81,7 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
     'default': {
-        'ENGINE': 'django.db.backends.MySql',  # Or another database engine like 'mysql', 'sqlite3'
+        'ENGINE': 'django.db.backends.mysql',  # Or another database engine like 'mysql', 'sqlite3'
         'NAME': 'blog',
         'USER': 'root',  # This is the missing 'USER'
         'PASSWORD': 'Mydatabase82#@',
