@@ -20,31 +20,31 @@ class RegisterView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user =serializer.save()
-        token, created = Token.objects.get_or_create(user=user)
+        token, _ = Token.objects.get_or_create(user=user)
         return Response({
             "user": RegisterSerializer(user).data,
             "token": token.key
-        })
+        }, status=status.HTTP_201_CREATED)
 
 class LoginView(ObtainAuthToken):
     serializer_class = LoginSerializer
     permission_classes = [AllowAny]
 
     def post(self, request, *arg, **kwargs):
-        serializer = self.serializer_class(data=request.data, context={"request":request})
+        serializer = self.serializer_class(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data
-        token, created = Token.objects.get_or_create(user=user)
+        user = serializer.validated_data['user']
+        token, _ = Token.objects.get_or_create(user=user)
         return Response({
             "token": token.key,
             "user_id": user.id,
             "username": user.username,
         })
     
-    class UserProfileView(generics.RetrieveAPIView):
-        query_set = User.objects.all()
-        serializer_class = UserProfileSerializer
-        permission_classes = [IsAuthenticated]
+class UserProfileView(generics.RetrieveAPIView):
+    query_set = User.objects.all()
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]
 
-        def get_object(self):
-            return self.request.user
+    def get_object(self):
+        return self.request.user
