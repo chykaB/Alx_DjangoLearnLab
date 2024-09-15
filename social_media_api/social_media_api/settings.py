@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'accounts', 
     'rest_framework',
     'rest_framework.authtoken',
+    'posts',
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
