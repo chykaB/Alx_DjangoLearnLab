@@ -31,7 +31,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([permissions.IsAuthenticated])
 def user_feed(request):
     followed_users = request.user.following.all()
     posts = Post.objects.filter(author__in=followed_users).order_by('-created_at')
@@ -40,7 +40,7 @@ def user_feed(request):
 
 
 class LikePostView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):
         post = generics.get_object_or_404(Post, pk=pk)
@@ -63,7 +63,7 @@ class LikePostView(generics.GenericAPIView):
     
 
 class UnlikePostView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):
         post = generics.get_object_or_404(Post, pk=pk)
