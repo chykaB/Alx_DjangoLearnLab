@@ -3,8 +3,7 @@ from .models import Book
 
 # Register your models here.
 class BookAdmin(admin.ModelAdmin):
-    class Meta:
-        model = Book
         list_display = ["title", "author", "publication_year"]
+        list_filter = ["title", "author"]
 
 admin.site.register(Book, BookAdmin)
