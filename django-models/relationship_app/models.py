@@ -7,7 +7,7 @@ class Author(models.Model):
     def __str__(self):
         return self.name
 
-class Books(models.Model):
+class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
