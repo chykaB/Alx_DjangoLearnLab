@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-8e2+h2uhne5uvvm1xmvkz-(_cxur6nmuuz*fqcy!8fz$qz#ha%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -43,6 +43,12 @@ INSTALLED_APPS = [
 
 # settings.py
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
+SECURE_BROWSER_XSS_FILTER = True  # Prevents XSS attacks by activating the X-XSS-Protection header.
+X_FRAME_OPTIONS = 'DENY'  # Prevents clickjacking by disallowing the page to be displayed in a frame.
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Blocks content-type sniffing on the browser.
+CSRF_COOKIE_SECURE = True  # Sends CSRF cookies over HTTPS only.
+SESSION_COOKIE_SECURE = True  # Ensures session cookies are sent over HTTPS only.
 
 
 MIDDLEWARE = [
