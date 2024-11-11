@@ -13,7 +13,7 @@ class Book(models.Model):
 
 class Library(models.Model):
     name = models.CharField(max_length=100)
-    books = models.ManyToManyField(Books)
+    books = models.ManyToManyField(Book)
 
 class Librarian(models.Model):
     name = models.CharField(max_length=100)
