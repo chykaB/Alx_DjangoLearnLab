@@ -59,6 +59,9 @@ X_FRAME_OPTIONS = 'DENY'  # Prevents the site from being framed (protects agains
 SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents browsers from sniffing MIME types
 SECURE_BROWSER_XSS_FILTER = True  # Enables the browser's built-in XSS filter
 
+# This setting tells Django to trust the X-Forwarded-Proto header from your proxy to determine if the request is secure (HTTPS).
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 
 MIDDLEWARE = [
