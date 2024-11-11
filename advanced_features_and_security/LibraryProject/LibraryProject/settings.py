@@ -50,6 +50,16 @@ SECURE_CONTENT_TYPE_NOSNIFF = True  # Blocks content-type sniffing on the browse
 CSRF_COOKIE_SECURE = True  # Sends CSRF cookies over HTTPS only.
 SESSION_COOKIE_SECURE = True  # Ensures session cookies are sent over HTTPS only.
 
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 31536000  # One year in seconds
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
+SECURE_HSTS_PRELOAD = True  # Enable preloading
+
+X_FRAME_OPTIONS = 'DENY'  # Prevents the site from being framed (protects against clickjacking)
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents browsers from sniffing MIME types
+SECURE_BROWSER_XSS_FILTER = True  # Enables the browser's built-in XSS filter
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
