@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics
 from .models import Author, Book
 from .serializers import AuthorSerializer, BookSerializer
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, is_authenticated
 
 
 class BookListView(generics.ListAPIView):
