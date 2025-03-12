@@ -1,6 +1,6 @@
 from .models import Author, Book
 from rest_framework import serializers
-from datetime import datetime
+from django.utils.timezone import datetime
 
 
 class BookSerializer(serializers.ModelSerializer):
